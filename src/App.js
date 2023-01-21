@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { initializeApp } from 'firebase/app';
 import {
   getFirestore,
@@ -21,6 +22,10 @@ import {
 } from 'firebase/storage';
 import { getFirebaseConfig } from './firebase-config.js';
 import './App.css';
+import Nav from './components/Nav.js';
+import HomePage from './components/HomePage.js';
+import GamePage from './components/GamePage.js';
+import LeaderboardPage from './components/LeaderboardPage.js';
 
 const firebaseAppConfig = getFirebaseConfig();
 const app = initializeApp(firebaseAppConfig);
@@ -28,16 +33,23 @@ const app = initializeApp(firebaseAppConfig);
 function App() {
 
   return (
-    <div className="container">
-      
+    <BrowserRouter>
+      <div className="container">
+        <Nav />
 
-      <div className="content">
-      </div>
+        <div className="content">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/game" element={<GamePage />} />
+            <Route path="/leaderboard" element={<LeaderboardPage />} />
+          </Routes>
+        </div>
 
-      <div className="footer">
-        <strong>By yours truly,&nbsp;<a href="https://github.com/mraffia">mraffia</a></strong> 
+        <div className="footer">
+          By yours truly,&nbsp;<a href="https://github.com/mraffia"><strong>mraffia</strong></a>
+        </div>
       </div>
-    </div>
+    </BrowserRouter>
   );
 }
 
