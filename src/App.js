@@ -50,7 +50,17 @@ function App() {
       { name: "Wizard", image: Wizard }
     ]},
   ]);
-  const [gameLevel, setGameLevel] = useState('');
+  const [gameLevel, setGameLevel] = useState('Easy');
+
+  function getLevel(gameLevel) {
+    let level;
+    for (let i = 0; i < levels.length; i++) {
+      if (levels[i].difficulty === gameLevel) {
+        level = levels[i];
+      }
+    }
+    return level;
+  }
 
   function handlePickLevel(difficulty) {
     setGameLevel(difficulty);
@@ -64,8 +74,8 @@ function App() {
         <div className="content">
           <Routes>
             <Route path="/" element={<HomePage levels={levels} handlePickLevel={handlePickLevel} />} />
-            {/* <Route path="/game" element={<GamePage gameLevel={gameLevel} />} />
-            <Route path="/leaderboard" element={<LeaderboardPage />} /> */}
+            <Route path="/game" element={<GamePage gameLevel={gameLevel} level={getLevel(gameLevel)} />} />
+            {/* <Route path="/leaderboard" element={<LeaderboardPage />} /> */}
           </Routes>
         </div>
 
