@@ -16,6 +16,11 @@
   margin: 40px;
 }
 
+.game-link {
+  color: black;
+  text-decoration: none;
+}
+
 @keyframes fadeInAnimation {
   0% {
       opacity: 0;
