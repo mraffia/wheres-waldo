@@ -12,7 +12,7 @@
 }
 
 .card-container:hover {
-  transform: scale(1.02);
+  transform: scale(1.03);
   cursor: pointer;
 }
 
@@ -49,5 +49,5 @@
 
 .card-character-image {
   max-height: 25px;
-  margin-left: 20px;
+  margin-left: 10px;
 }
