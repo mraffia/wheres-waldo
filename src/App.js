@@ -29,6 +29,14 @@ function App() {
 
   return (
     <div className="container">
+      
+
+      <div className="content">
+      </div>
+
+      <div className="footer">
+        <strong>By yours truly,&nbsp;<a href="https://github.com/mraffia">mraffia</a></strong> 
+      </div>
     </div>
   );
 }
