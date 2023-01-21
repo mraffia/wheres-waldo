@@ -1,0 +1,36 @@
+.navbar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-weight: bold;
+  background-color: #112D4E;
+  color: white;
+}
+
+.nav-title {
+  font-size: 24px;
+}
+
+.nav-links {
+  width: 20%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  list-style: none;
+}
+
+.nav-title-link {
+  color: white;
+  text-decoration: none;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  transition: transform .2s;
+  cursor: pointer;
+}
+
+.nav-link:hover {
+  transform: scale(1.1);
+}

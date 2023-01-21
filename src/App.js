@@ -38,11 +38,11 @@ function App() {
         <Nav />
 
         <div className="content">
-          <Routes>
+          {/* <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/game" element={<GamePage />} />
             <Route path="/leaderboard" element={<LeaderboardPage />} />
-          </Routes>
+          </Routes> */}
         </div>
 
         <div className="footer">
