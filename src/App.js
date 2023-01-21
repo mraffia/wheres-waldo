@@ -30,25 +30,40 @@ import Waldo from './images/waldo.jpg';
 import Odlaw from './images/odlaw.jpg';
 import Wenda from './images/wenda.jpeg';
 import Wizard from './images/wizard.jpeg';
+import Easy from './images/easy.jpg';
+import Medium from './images/medium.jpg';
+import Hard from './images/hard.jpg';
 
 const firebaseAppConfig = getFirebaseConfig();
 const app = initializeApp(firebaseAppConfig);
 
 function App() {
   const [levels, setLevels] = useState([
-    { difficulty: "Easy", characters: [
-      { name: "Waldo", image: Waldo }
-    ]},
-    { difficulty: "Medium", characters: [
-      { name: "Waldo", image: Waldo },
-      { name: "Odlaw", image: Odlaw }
-    ]},
-    { difficulty: "Hard", characters: [
-      { name: "Waldo", image: Waldo },
-      { name: "Odlaw", image: Odlaw },
-      { name: "Wenda", image: Wenda },
-      { name: "Wizard", image: Wizard }
-    ]},
+    { 
+      difficulty: "Easy",
+      image: Easy,
+      characters: [
+        { name: "Waldo", image: Waldo }
+      ]
+    },
+    { 
+      difficulty: "Medium",
+      image: Medium,
+      characters: [
+        { name: "Waldo", image: Waldo },
+        { name: "Odlaw", image: Odlaw }
+      ]
+    },
+    { 
+      difficulty: "Hard",
+      image: Hard,
+      characters: [
+        { name: "Waldo", image: Waldo },
+        { name: "Odlaw", image: Odlaw },
+        { name: "Wenda", image: Wenda },
+        { name: "Wizard", image: Wizard }
+      ]
+    },
   ]);
   const [gameLevel, setGameLevel] = useState('Easy');
 
@@ -74,7 +89,7 @@ function App() {
         <div className="content">
           <Routes>
             <Route path="/" element={<HomePage levels={levels} handlePickLevel={handlePickLevel} />} />
-            <Route path="/game" element={<GamePage gameLevel={gameLevel} level={getLevel(gameLevel)} />} />
+            <Route path="/game" element={<GamePage level={getLevel(gameLevel)} />} />
             {/* <Route path="/leaderboard" element={<LeaderboardPage />} /> */}
           </Routes>
         </div>
