@@ -1,0 +1,45 @@
+.game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  animation: fadeInAnimation ease 1s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+.game-characters {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 40px 20px 20px 20px;
+  max-width: 80vw;
+}
+
+.game-character-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 20px 0 20px;
+}
+
+.game-character-image {
+  max-height: 50px;
+}
+
+.game-characters,
+.game-image-container,
+.game-image {
+  max-width: 80vw;
+}
+
+@keyframes fadeInAnimation {
+  0% {
+      opacity: 0;
+  }
+  100% {
+      opacity: 1;
+  }
+}
