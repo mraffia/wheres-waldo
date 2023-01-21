@@ -8,7 +8,7 @@
   border-radius: 8px;
   transition: transform .2s;
   width: 400px;
-  height: 300px;
+  height: 320px;
 }
 
 .card-container:hover {
@@ -49,5 +49,5 @@
 
 .card-character-image {
   max-height: 25px;
-  margin: 20px 0 20px 20px;
+  margin-left: 20px;
 }

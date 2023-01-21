@@ -8,6 +8,7 @@
 .home-subcontainer {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
   max-width: 1400px;
   margin: 40px;
   animation: fadeInAnimation ease 1s;
