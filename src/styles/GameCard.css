@@ -1,0 +1,40 @@
+.card-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  transition: transform .2s;
+  width: 600px;
+  height: 300px;
+}
+
+.card-container:hover {
+  transform: scale(1.1);
+}
+
+.card-image-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 200px;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.card-info-container {
+  width: 100%;
+  height: 150px;
+}
+
+.card-difficulty {
+  margin: 16px 16px 0 16px;
+  font-weight: bold;
+}
+
+.card-character-image {
+  margin: 20px;
+  max-height: 20px;
+}
