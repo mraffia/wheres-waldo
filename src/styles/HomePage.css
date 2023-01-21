@@ -3,6 +3,9 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  animation: fadeInAnimation ease 1s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
 }
 
 .home-subcontainer {
@@ -11,9 +14,6 @@
   grid-template-rows: 1fr;
   max-width: 1400px;
   margin: 40px;
-  animation: fadeInAnimation ease 1s;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
 }
 
 @keyframes fadeInAnimation {
