@@ -11,34 +11,38 @@
 .game-characters {
   display: flex;
   flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  margin: 40px 20px 20px 20px;
-  max-width: 80vw;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin: 20px;
 }
 
 .game-character-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   margin: 0 20px 0 20px;
 }
 
 .game-character-image {
-  max-height: 50px;
+  max-height: 36px;
+  margin-right: 10px;
 }
 
-.game-characters,
+.game-characters {
+  max-width: 80vw;
+}
+
 .game-image-container,
 .game-image {
   max-width: 80vw;
+  max-height: 80vh;
 }
 
 .dropdown-characters {
   position: absolute;
   width: 150px;
-  z-index: 2;
+  z-index: 10;
   background-color: white;
   border-radius: 8px;
 }
