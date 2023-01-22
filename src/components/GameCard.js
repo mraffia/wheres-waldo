@@ -10,11 +10,9 @@ function GameCard({ level, handlePickLevel }) {
       <div className="card-info-container">
         <div className="card-difficulty">{level.difficulty}</div>
         <div className="card-characters">
-          {
-            level.characters.map((character, i) => {
-              return <img key={i} className="card-character-image" src={character.image} alt={character.name} />
-            })
-          }
+          {level.characters.map((character, i) => {
+            return <img key={i} className="card-character-image" src={character.image} alt={character.name} />
+          })}
         </div>
       </div>
     </div>
