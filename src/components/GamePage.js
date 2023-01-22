@@ -16,21 +16,21 @@ function GamePage({ level, openCharacterDropdown, cursorPosition, handleClickDro
         </div>
         <div className="game-image-container">
           <img className="game-image" src={level.image} alt={level.difficulty} onClick={(e) => handleClickDropdownAppear(e)} />
-          {openCharacterDropdown && (
-            <div className="dropdown-characters" style={cursorPosition}>
-              {
-                level.characters.map((character, i) => {
-                  return (
-                    <div key={i} className="dropdown-character-container" onClick={() => handleChooseCharacter(character, cursorPosition)}>
-                      <img className="dropdown-character-image" src={character.image} alt={character.name} />
-                      <div className="dropdown-character-name"><strong>{character.name}</strong></div>
-                    </div>
-                  )
-                })
-              }
-            </div>
-          )}
         </div>
+        {openCharacterDropdown && (
+          <div className="dropdown-characters" style={{left: cursorPosition.left + "px", top: cursorPosition.top + "px"}}>
+            {
+              level.characters.map((character, i) => {
+                return (
+                  <div key={i} className="dropdown-character-container" onClick={() => handleChooseCharacter(character, cursorPosition)}>
+                    <img className="dropdown-character-image" src={character.image} alt={character.name} />
+                    <div className="dropdown-character-name"><strong>{character.name}</strong></div>
+                  </div>
+                )
+              })
+            }
+          </div>
+        )}
     </div>
   );
 }
