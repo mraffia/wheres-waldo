@@ -35,6 +35,36 @@
   max-width: 80vw;
 }
 
+.dropdown-characters {
+  position: absolute;
+  width: 150px;
+  z-index: 2;
+  background-color: white;
+  border-radius: 8px;
+}
+
+.dropdown-character-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border: 1px solid rgba(150, 150, 150, 0.1);
+  padding: 15px
+}
+
+.dropdown-character-container:hover {
+  background-color: rgba(150, 150, 150, 0.1);
+  cursor: pointer;
+}
+
+.dropdown-character-image {
+  max-height: 20px;
+  margin-right: 20px;
+}
+
+.dropdown-character-name {
+  font-size: 14px;
+}
+
 @keyframes fadeInAnimation {
   0% {
       opacity: 0;
