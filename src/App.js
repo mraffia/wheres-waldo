@@ -43,7 +43,7 @@ function App() {
       difficulty: "Easy",
       image: Easy,
       characters: [
-        { name: "Waldo", image: Waldo }
+        { name: "Waldo", image: Waldo, found: false }
       ]
     },
     { 
@@ -70,6 +70,11 @@ function App() {
     Medium: { Odlaw: false },
     Hard: { Wenda: false, Wizard: false  },
   });
+  const [foundStatus, setFoundStatus] = useState({
+    Easy: { Waldo: false },
+    Medium: { Odlaw: false },
+    Hard: { Wenda: false, Wizard: false  },
+  });
 
   function getLevel(gameLevel) {
     let level;
@@ -87,9 +92,9 @@ function App() {
 
   function handleClickDropdownAppear(e, character = null) {
     let newActiveAreas = {...activeAreas};
-    Object.keys(newActiveAreas[gameLevel]).forEach(v => newActiveAreas[gameLevel][v] = false);
+    Object.keys(newActiveAreas[gameLevel]).forEach(value => newActiveAreas[gameLevel][value] = false);
     setActiveAreas(newActiveAreas);
-    
+
     if (character) {
       newActiveAreas[gameLevel] = { ...newActiveAreas[gameLevel], [character.name]: true }
       setActiveAreas(newActiveAreas);
@@ -101,11 +106,17 @@ function App() {
 
   function handleChooseCharacter(character) {
     if (activeAreas[gameLevel][character.name] === true) {
+      let newFoundStatus = {...foundStatus};
+      newFoundStatus[gameLevel][character.name] = true;
+
+      setFoundStatus(newFoundStatus)
+      setOpenCharacterDropdown(!openCharacterDropdown);
+
+
       console.log(`You've found ${character.name}!`);
-      setOpenCharacterDropdown(!openCharacterDropdown);
     } else {
-      console.log(`Whoops! That's not ${character.name}!`);
       setOpenCharacterDropdown(!openCharacterDropdown);
+      console.log(`Whoops! That's not ${character.name}!`);
     }
   }
 
@@ -124,6 +135,7 @@ function App() {
                   level={getLevel(gameLevel)} 
                   openCharacterDropdown={openCharacterDropdown}
                   cursorPosition={cursorPosition} 
+                  foundStatus={foundStatus[gameLevel]}
                   handleClickDropdownAppear={handleClickDropdownAppear} 
                   handleChooseCharacter={handleChooseCharacter} 
                 />
