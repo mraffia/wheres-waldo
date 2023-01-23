@@ -1,4 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
 import '../styles/GamePage.css';
 
 function GamePage({ level }) {
@@ -14,6 +16,7 @@ function GamePage({ level }) {
     Medium: { Odlaw: false },
     Hard: { Wenda: false, Wizard: false  },
   });
+  const [foundAll, setFoundAll] = useState(false);
   const [time, setTime] = useState(0);
   const intervalRef = useRef();
 
@@ -49,22 +52,18 @@ function GamePage({ level }) {
   }
 
   function checkIfFoundAll(foundStatusLevel) {
-    let foundAllStatus = false;
-
     for (const character in foundStatusLevel) {
       if (foundStatusLevel[character] === false) {
-        foundAllStatus = false;
+        setFoundAll(false);
       } else {
-        foundAllStatus = true;
+        setFoundAll(true);
       }
     }
-
-    return foundAllStatus;
   }
 
   useEffect(() => {
-    let foundAll = checkIfFoundAll(foundStatus[level.difficulty]);
-
+    checkIfFoundAll(foundStatus[level.difficulty])
+    
     if (foundAll === false) {
       intervalRef.current = setInterval(() => {
         setTime((time) => time + 10);
@@ -76,11 +75,10 @@ function GamePage({ level }) {
     return () => {
       clearInterval(intervalRef.current);
     };
-  }, [foundStatus, level.difficulty]);
+  }, [foundStatus, level.difficulty, foundAll]);
 
   return (
     <div className="game-container">
-        <div>{time}</div>
         <div className="game-characters">
           {level.characters.map((character, i) => {
             return (
@@ -118,6 +116,29 @@ function GamePage({ level }) {
             </div>
           )}
         </div>
+        <Popup
+          open={foundAll}
+          modal
+          closeOnDocumentClick={false}
+          closeOnEscape={false}
+        >
+          {close => (
+            <div className="modal">
+              <div className="header"><strong>You finished in { Math.floor((time / 1000)) + "." + ((time / 10) % 100) + " seconds!"}</strong></div>
+              <div className="content">
+                Enter your name to save your score on the leaderboard.
+              </div>
+              <div className="actions">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" className="input" placeholder="Your name/alias"></input>
+                <div className="button-container">
+                  <button className="button btn-submit" onClick={() => close()}>Submit score</button>
+                  <button className="button btn-danger" onClick={() => close()}>Cancel</button>
+                </div>
+              </div>
+            </div>
+          )}
+        </Popup>
     </div>
   );
 }
