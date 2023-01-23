@@ -1,9 +1,10 @@
 import React, { useRef, useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import '../styles/GamePage.css';
 
-function GamePage({ level }) {
+function GamePage({ level, handleSubmitToLeaderboard }) {
   const [openCharacterDropdown, setOpenCharacterDropdown] = useState(false);
   const [cursorPosition, setCursorPosition] = useState({ left: 0, top: 0 });
   const [activeAreas, setActiveAreas] = useState({
@@ -18,6 +19,8 @@ function GamePage({ level }) {
   });
   const [foundAll, setFoundAll] = useState(false);
   const [time, setTime] = useState(0);
+  const [playerName, setPlayerName] = useState('Anonymous');
+
   const intervalRef = useRef();
 
   function handleClickDropdownAppear(e, character = null) {
@@ -51,13 +54,15 @@ function GamePage({ level }) {
     }
   }
 
+  function handleNameChange(e) {
+    setPlayerName(e.target.value);
+  }
+
   function checkIfFoundAll(foundStatusLevel) {
-    for (const character in foundStatusLevel) {
-      if (foundStatusLevel[character] === false) {
-        setFoundAll(false);
-      } else {
-        setFoundAll(true);
-      }
+    if (Object.values(foundStatusLevel).every((value) => value === true)) {
+      setFoundAll(true);
+    } else {
+      setFoundAll(false);
     }
   }
 
@@ -122,22 +127,24 @@ function GamePage({ level }) {
           closeOnDocumentClick={false}
           closeOnEscape={false}
         >
-          {close => (
-            <div className="modal">
-              <div className="header"><strong>You finished in { Math.floor((time / 1000)) + "." + ((time / 10) % 100) + " seconds!"}</strong></div>
-              <div className="content">
-                Enter your name to save your score on the leaderboard.
-              </div>
-              <div className="actions">
-                <label for="name">Name</label>
-                <input type="text" id="name" name="name" className="input" placeholder="Your name/alias"></input>
-                <div className="button-container">
-                  <button className="button btn-submit" onClick={() => close()}>Submit score</button>
-                  <button className="button btn-danger" onClick={() => close()}>Cancel</button>
-                </div>
+          <div className="modal">
+            <div className="header"><strong>You finished in { Math.floor((time / 1000)) + "." + ((time / 10) % 100) + " seconds!"}</strong></div>
+            <div className="content">
+              Enter your name to save your score on the leaderboard.
+            </div>
+            <div className="actions">
+              <label htmlFor="name">Name</label>
+              <input type="text" id="name" name="name" className="input" placeholder="Your name/alias" onChange={(e) => handleNameChange(e)}></input>
+              <div className="button-container">
+                <Link to="/">
+                <button className="button btn-submit" onClick={() => handleSubmitToLeaderboard(playerName, time, level.difficulty)}>Submit score</button>
+                </Link>
+                <Link to="/">
+                  <button className="button btn-danger">Cancel</button>
+                </Link>
               </div>
             </div>
-          )}
+          </div>
         </Popup>
     </div>
   );
