@@ -87,11 +87,11 @@ function App() {
 
   function handleClickDropdownAppear(e, character = null) {
     let newActiveAreas = {...activeAreas};
+    Object.keys(newActiveAreas[gameLevel]).forEach(v => newActiveAreas[gameLevel][v] = false);
+    setActiveAreas(newActiveAreas);
+    
     if (character) {
       newActiveAreas[gameLevel] = { ...newActiveAreas[gameLevel], [character.name]: true }
-      setActiveAreas(newActiveAreas);
-    } else {
-      Object.keys(newActiveAreas[gameLevel]).forEach(v => newActiveAreas[gameLevel][v] = false);
       setActiveAreas(newActiveAreas);
     }
 
