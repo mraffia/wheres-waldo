@@ -87,12 +87,12 @@
 #Medium-Odlaw {
   float: left;
   position: absolute;
-  left: 515px;
-  top: 270px;
+  left: 42px;
+  top: 542px;
   z-index: 2;
   background-color: rgba(0, 0, 0, 0.5);
-  width: 35px;
-  height: 70px;
+  width: 30px;
+  height: 50px;
 }
 
 #Hard-Wenda {
