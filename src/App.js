@@ -63,6 +63,7 @@ function App() {
     },
   ]);
   const [gameLevel, setGameLevel] = useState('Easy');
+  const [leaderboard, setLeaderboard] = useState([]);
 
   function getLevel(gameLevel) {
     let level;
@@ -78,6 +79,17 @@ function App() {
     setGameLevel(difficulty);
   }
 
+  function handleSubmitToLeaderboard(playerName, time, level) {
+    let newLeaderboard = [...leaderboard];
+    newLeaderboard.push({ name: playerName, time: time, level: level });
+
+    setLeaderboard(newLeaderboard);
+  }
+
+  useEffect(() => {
+    console.log(leaderboard);
+  }, [leaderboard]);
+
   return (
     <BrowserRouter>
       <div className="container">
@@ -86,7 +98,7 @@ function App() {
         <div className="content">
           <Routes>
             <Route path="/" element={<HomePage levels={levels} handlePickLevel={handlePickLevel} />} />
-            <Route path="/game" element={<GamePage level={getLevel(gameLevel)} />} />
+            <Route path="/game" element={<GamePage level={getLevel(gameLevel)} handleSubmitToLeaderboard={handleSubmitToLeaderboard}/>} />
             {/* <Route path="/leaderboard" element={<LeaderboardPage />} /> */}
           </Routes>
         </div>
