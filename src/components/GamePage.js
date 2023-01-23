@@ -4,7 +4,8 @@ import '../styles/GamePage.css';
 function GamePage({ 
   level, 
   openCharacterDropdown, 
-  cursorPosition, 
+  cursorPosition,
+  foundStatus,
   handleClickDropdownAppear, 
   handleChooseCharacter,
 }) {
@@ -13,7 +14,7 @@ function GamePage({
         <div className="game-characters">
           {level.characters.map((character, i) => {
             return (
-              <div key={i} className="game-character-container">
+              <div key={i} className="game-character-container" style={foundStatus[character.name] ? { opacity: 0.5 } : { opacity: 1 }}>
                 <img className="game-character-image" src={character.image} alt={character.name} />
                 <div className="game-character-name"><strong>{character.name}</strong></div>
               </div>
