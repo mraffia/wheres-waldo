@@ -63,18 +63,6 @@ function App() {
     },
   ]);
   const [gameLevel, setGameLevel] = useState('Easy');
-  const [openCharacterDropdown, setOpenCharacterDropdown] = useState(false);
-  const [cursorPosition, setCursorPosition] = useState({ left: 0, top: 0 });
-  const [activeAreas, setActiveAreas] = useState({
-    Easy: { Waldo: false },
-    Medium: { Odlaw: false },
-    Hard: { Wenda: false, Wizard: false  },
-  });
-  const [foundStatus, setFoundStatus] = useState({
-    Easy: { Waldo: false },
-    Medium: { Odlaw: false },
-    Hard: { Wenda: false, Wizard: false  },
-  });
 
   function getLevel(gameLevel) {
     let level;
@@ -90,36 +78,6 @@ function App() {
     setGameLevel(difficulty);
   }
 
-  function handleClickDropdownAppear(e, character = null) {
-    let newActiveAreas = {...activeAreas};
-    Object.keys(newActiveAreas[gameLevel]).forEach(value => newActiveAreas[gameLevel][value] = false);
-    setActiveAreas(newActiveAreas);
-
-    if (character) {
-      newActiveAreas[gameLevel] = { ...newActiveAreas[gameLevel], [character.name]: true }
-      setActiveAreas(newActiveAreas);
-    }
-
-    setCursorPosition({ left: e.pageX, top: e.pageY });
-    setOpenCharacterDropdown(!openCharacterDropdown);
-  }
-
-  function handleChooseCharacter(character) {
-    if (activeAreas[gameLevel][character.name] === true) {
-      let newFoundStatus = {...foundStatus};
-      newFoundStatus[gameLevel][character.name] = true;
-
-      setFoundStatus(newFoundStatus)
-      setOpenCharacterDropdown(!openCharacterDropdown);
-
-
-      console.log(`You've found ${character.name}!`);
-    } else {
-      setOpenCharacterDropdown(!openCharacterDropdown);
-      console.log(`Whoops! That's not ${character.name}!`);
-    }
-  }
-
   return (
     <BrowserRouter>
       <div className="container">
@@ -128,19 +86,7 @@ function App() {
         <div className="content">
           <Routes>
             <Route path="/" element={<HomePage levels={levels} handlePickLevel={handlePickLevel} />} />
-            <Route 
-              path="/game" 
-              element={
-                <GamePage 
-                  level={getLevel(gameLevel)} 
-                  openCharacterDropdown={openCharacterDropdown}
-                  cursorPosition={cursorPosition} 
-                  foundStatus={foundStatus[gameLevel]}
-                  handleClickDropdownAppear={handleClickDropdownAppear} 
-                  handleChooseCharacter={handleChooseCharacter} 
-                />
-              } 
-            />
+            <Route path="/game" element={<GamePage level={getLevel(gameLevel)} />} />
             {/* <Route path="/leaderboard" element={<LeaderboardPage />} /> */}
           </Routes>
         </div>
