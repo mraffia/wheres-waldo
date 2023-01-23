@@ -136,8 +136,8 @@ function GamePage({ level, handleSubmitToLeaderboard }) {
               <label htmlFor="name">Name</label>
               <input type="text" id="name" name="name" className="input" placeholder="Your name/alias" onChange={(e) => handleNameChange(e)}></input>
               <div className="button-container">
-                <Link to="/">
-                <button className="button btn-submit" onClick={() => handleSubmitToLeaderboard(playerName, time, level.difficulty)}>Submit score</button>
+                <Link to="/leaderboard">
+                  <button className="button btn-submit" onClick={() => handleSubmitToLeaderboard(playerName, time, level.difficulty)}>Submit score</button>
                 </Link>
                 <Link to="/">
                   <button className="button btn-danger">Cancel</button>
