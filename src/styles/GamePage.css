@@ -35,8 +35,12 @@
 
 .game-image-container,
 .game-image {
-  max-width: 80vw;
-  max-height: 80vh;
+  width: 740px;
+  height: 740px;
+}
+
+.game-image-subcontainer {
+  position: relative;
 }
 
 .dropdown-characters {
@@ -67,6 +71,50 @@
 
 .dropdown-character-name {
   font-size: 14px;
+}
+
+#Easy-Waldo {
+  float: left;
+  position: absolute;
+  left: 515px;
+  top: 270px;
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 35px;
+  height: 70px;
+}
+
+#Medium-Odlaw {
+  float: left;
+  position: absolute;
+  left: 515px;
+  top: 270px;
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 35px;
+  height: 70px;
+}
+
+#Hard-Wenda {
+  float: left;
+  position: absolute;
+  left: 515px;
+  top: 270px;
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 35px;
+  height: 70px;
+}
+
+#Hard-Wizard {
+  float: left;
+  position: absolute;
+  left: 515px;
+  top: 270px;
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 35px;
+  height: 70px;
 }
 
 @keyframes fadeInAnimation {
