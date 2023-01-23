@@ -83,6 +83,8 @@ function App() {
     let newLeaderboard = [...leaderboard];
     newLeaderboard.push({ name: playerName, time: time, level: level });
 
+    newLeaderboard.sort((a, b) => (a.time > b.time) ? 1 : -1)
+
     setLeaderboard(newLeaderboard);
   }
 
@@ -99,7 +101,7 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage levels={levels} handlePickLevel={handlePickLevel} />} />
             <Route path="/game" element={<GamePage level={getLevel(gameLevel)} handleSubmitToLeaderboard={handleSubmitToLeaderboard}/>} />
-            {/* <Route path="/leaderboard" element={<LeaderboardPage />} /> */}
+            <Route path="/leaderboard" element={<LeaderboardPage levels={levels} gameLevel={gameLevel} leaderboard={leaderboard} />} />
           </Routes>
         </div>
 
