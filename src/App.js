@@ -30,9 +30,9 @@ import Waldo from './images/waldo.jpg';
 import Odlaw from './images/odlaw.jpg';
 import Wenda from './images/wenda.jpeg';
 import Wizard from './images/wizard.jpeg';
-import Easy from './images/easy.jpg';
-import Medium from './images/medium.jpg';
-import Hard from './images/hard.jpg';
+import Easy from './images/easyCropped.jpg';
+import Medium from './images/mediumCropped.jpg';
+import Hard from './images/hardCropped.jpg';
 
 const firebaseAppConfig = getFirebaseConfig();
 const app = initializeApp(firebaseAppConfig);
@@ -50,7 +50,6 @@ function App() {
       difficulty: "Medium",
       image: Medium,
       characters: [
-        { name: "Waldo", image: Waldo },
         { name: "Odlaw", image: Odlaw }
       ]
     },
@@ -58,14 +57,19 @@ function App() {
       difficulty: "Hard",
       image: Hard,
       characters: [
-        { name: "Waldo", image: Waldo },
-        { name: "Odlaw", image: Odlaw },
         { name: "Wenda", image: Wenda },
         { name: "Wizard", image: Wizard }
       ]
     },
   ]);
   const [gameLevel, setGameLevel] = useState('Easy');
+  const [openCharacterDropdown, setOpenCharacterDropdown] = useState(false);
+  const [cursorPosition, setCursorPosition] = useState({ left: 0, top: 0 });
+  const [activeAreas, setActiveAreas] = useState({
+    Easy: { Waldo: false },
+    Medium: { Odlaw: false },
+    Hard: { Wenda: false, Wizard: false  },
+  });
 
   function getLevel(gameLevel) {
     let level;
@@ -81,6 +85,30 @@ function App() {
     setGameLevel(difficulty);
   }
 
+  function handleClickDropdownAppear(e, character = null) {
+    let newActiveAreas = {...activeAreas};
+    if (character) {
+      newActiveAreas[gameLevel] = { ...newActiveAreas[gameLevel], [character.name]: true }
+      setActiveAreas(newActiveAreas);
+    } else {
+      Object.keys(newActiveAreas[gameLevel]).forEach(v => newActiveAreas[gameLevel][v] = false);
+      setActiveAreas(newActiveAreas);
+    }
+
+    setCursorPosition({ left: e.pageX, top: e.pageY });
+    setOpenCharacterDropdown(!openCharacterDropdown);
+  }
+
+  function handleChooseCharacter(character) {
+    if (activeAreas[gameLevel][character.name] === true) {
+      console.log(`You've found ${character.name}!`);
+      setOpenCharacterDropdown(!openCharacterDropdown);
+    } else {
+      console.log(`Whoops! That's not ${character.name}!`);
+      setOpenCharacterDropdown(!openCharacterDropdown);
+    }
+  }
+
   return (
     <BrowserRouter>
       <div className="container">
@@ -89,7 +117,18 @@ function App() {
         <div className="content">
           <Routes>
             <Route path="/" element={<HomePage levels={levels} handlePickLevel={handlePickLevel} />} />
-            <Route path="/game" element={<GamePage level={getLevel(gameLevel)} />} />
+            <Route 
+              path="/game" 
+              element={
+                <GamePage 
+                  level={getLevel(gameLevel)} 
+                  openCharacterDropdown={openCharacterDropdown}
+                  cursorPosition={cursorPosition} 
+                  handleClickDropdownAppear={handleClickDropdownAppear} 
+                  handleChooseCharacter={handleChooseCharacter} 
+                />
+              } 
+            />
             {/* <Route path="/leaderboard" element={<LeaderboardPage />} /> */}
           </Routes>
         </div>
