@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Rings } from 'react-loader-spinner';
 import '../styles/LeaderboardPage.css';
 
-function LeaderboardPage({ levels, gameLevel, leaderboard, isLoading }) {
+function LeaderboardPage({ levels, gameLevel, leaderboard, isLoading, isError }) {
   const [currentLevel, setCurrentLevel] = useState(gameLevel);
 
   function handleClickLeaderboardLevel(level) {
@@ -26,6 +26,7 @@ function LeaderboardPage({ levels, gameLevel, leaderboard, isLoading }) {
         })}
       </div>
       <div className="leaderboard-table-container">
+      {isError && <div className="error-message">Something went wrong ...</div>}
         {isLoading ? (
           <Rings
             height="100"
