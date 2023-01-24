@@ -133,7 +133,7 @@ function GamePage({ level, handleSubmitToLeaderboard }) {
               Enter your name to save your score on the leaderboard.
             </div>
             <div className="actions">
-              <label htmlFor="name">Name</label>
+              <label htmlFor="name">Name:</label>
               <input type="text" id="name" name="name" className="input" placeholder="Your name/alias" onChange={(e) => handleNameChange(e)}></input>
               <div className="button-container">
                 <Link to="/leaderboard">
