@@ -33,7 +33,7 @@
 }
 
 .leaderboard-table-container {
-  width: 80%;
+  width: 50%;
   margin: 10px 20px;
 }
 
@@ -46,10 +46,10 @@ table {
 td, th {
   border: 1px solid #dddddd;
   text-align: left;
-  padding: 15px;
+  padding: 15px 20px;
 }
 
-tr:nth-child(1) {
+thead {
   background-color: #eeeeee;
 }
 
