@@ -59,6 +59,7 @@ function App() {
   ]);
   const [gameLevel, setGameLevel] = useState('Easy');
   const [leaderboard, setLeaderboard] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   function getLevel(gameLevel) {
     let level;
@@ -78,8 +79,12 @@ function App() {
     saveLeaderboardData(playerName, time, level);
 
     (async () => {
+      setIsLoading(true);
+
       const leaderboardData = await getLeaderboard(db);
       setLeaderboard(leaderboardData);
+
+      setIsLoading(false);
     })();
   }
 
@@ -108,8 +113,12 @@ function App() {
 
   useEffect(() => {
     (async () => {
+      setIsLoading(true);
+
       const leaderboardData = await getLeaderboard(db);
       setLeaderboard(leaderboardData);
+      
+      setIsLoading(false);
     })();
   }, []);
 
@@ -126,7 +135,7 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage levels={levels} handlePickLevel={handlePickLevel} />} />
             <Route path="/game" element={<GamePage level={getLevel(gameLevel)} handleSubmitToLeaderboard={handleSubmitToLeaderboard}/>} />
-            <Route path="/leaderboard" element={<LeaderboardPage levels={levels} gameLevel={gameLevel} leaderboard={leaderboard} />} />
+            <Route path="/leaderboard" element={<LeaderboardPage levels={levels} gameLevel={gameLevel} leaderboard={leaderboard} isLoading={isLoading}/>} />
           </Routes>
         </div>
 
