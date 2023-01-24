@@ -9,56 +9,27 @@ import {
   orderBy,
   getDocs,
 } from 'firebase/firestore';
-import {
-  getStorage,
-  ref,
-  uploadBytesResumable,
-  getDownloadURL,
-} from 'firebase/storage';
 import { getFirebaseConfig } from './firebase-config.js';
 import Nav from './components/Nav.js';
 import HomePage from './components/HomePage.js';
 import GamePage from './components/GamePage.js';
 import LeaderboardPage from './components/LeaderboardPage.js';
 import './App.css';
-import Waldo from './images/waldo.jpg';
-import Odlaw from './images/odlaw.jpg';
-import Wenda from './images/wenda.jpeg';
-import Wizard from './images/wizard.jpeg';
-import Easy from './images/easyCropped.jpg';
-import Medium from './images/mediumCropped.jpg';
-import Hard from './images/hardCropped.jpg';
 
 const firebaseApp = initializeApp(getFirebaseConfig());
 const db = getFirestore(firebaseApp);
 
 function App() {
-  const [levels, setLevels] = useState([
-    { 
-      difficulty: "Easy",
-      image: Easy,
-      characters: [
-        { name: "Waldo", image: Waldo }
-      ]
-    },
-    { 
-      difficulty: "Medium",
-      image: Medium,
-      characters: [
-        { name: "Odlaw", image: Odlaw }
-      ]
-    },
-    { 
-      difficulty: "Hard",
-      image: Hard,
-      characters: [
-        { name: "Wenda", image: Wenda },
-        { name: "Wizard", image: Wizard }
-      ]
-    },
-  ]);
-  const [gameLevel, setGameLevel] = useState('Easy');
+  const [levels, setLevels] = useState([]);
   const [leaderboard, setLeaderboard] = useState([]);
+  const [gameLevel, setGameLevel] = useState('Easy');
+  const [defaultLevel, setDefaultLevel] = useState({
+    difficulty: "Easy",
+    imageUrl: "",
+    characters: [
+      { name: "Waldo", imageUrl: "" }
+    ]
+  })
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
@@ -69,7 +40,7 @@ function App() {
         level = levels[i];
       }
     }
-    return level;
+    return level ? level : defaultLevel;
   }
 
   function handlePickLevel(difficulty) {
@@ -78,22 +49,6 @@ function App() {
 
   function handleSubmitToLeaderboard(playerName, time, level) {
     saveLeaderboardData(playerName, time, level);
-
-    const fetchLeaderboardData = async () => {
-      setIsError(false);
-      setIsLoading(true);
-
-      try {
-        const leaderboardData = await getLeaderboard(db);
-        setLeaderboard(leaderboardData);
-      } catch (error) {
-        console.error('Error fetching leaderboard data from Firebase Database', error);
-        setIsError(true);
-      }
-
-      setIsLoading(false);
-    };
-
     fetchLeaderboardData();
   }
 
@@ -124,27 +79,46 @@ function App() {
     return leaderboardList;
   }
 
+  // Get a list of all levels from database
+  async function getLevels(db) {
+    const levelsQuery = query(collection(db, "levels"));
+    const levelsSnapshot = await getDocs(levelsQuery);
+    const levelsList = levelsSnapshot.docs.map(doc => doc.data());
+    return levelsList;
+  }
+
+  async function fetchLevelsData() {
+    setIsError(false);
+    setIsLoading(true);
+
+    try {
+      const levelsData = await getLevels(db);
+      setLevels(levelsData);
+    } catch (error) {
+      setIsError(true);
+    }
+
+    setIsLoading(false);
+  }
+
+  async function fetchLeaderboardData() {
+    setIsError(false);
+    setIsLoading(true);
+
+    try {
+      const leaderboardData = await getLeaderboard(db);
+      setLeaderboard(leaderboardData);
+    } catch (error) {
+      setIsError(true);
+    }
+
+    setIsLoading(false);
+  }
+
   useEffect(() => {
-    const fetchLeaderboardData = async () => {
-      setIsError(false);
-      setIsLoading(true);
-
-      try {
-        const leaderboardData = await getLeaderboard(db);
-        setLeaderboard(leaderboardData);
-      } catch (error) {
-        setIsError(true);
-      }
-
-      setIsLoading(false);
-    };
-    
+    fetchLevelsData();
     fetchLeaderboardData();
   }, []);
-
-  useEffect(() => {
-    console.log(leaderboard);
-  }, [leaderboard]);
 
   return (
     <BrowserRouter>
@@ -153,9 +127,9 @@ function App() {
 
         <div className="content">
           <Routes>
-            <Route path="/" element={<HomePage levels={levels} handlePickLevel={handlePickLevel} />} />
-            <Route path="/game" element={<GamePage level={getLevel(gameLevel)} handleSubmitToLeaderboard={handleSubmitToLeaderboard}/>} />
-            <Route path="/leaderboard" element={<LeaderboardPage levels={levels} gameLevel={gameLevel} leaderboard={leaderboard} isLoading={isLoading} isError={isError}/>} />
+            <Route path="/" element={<HomePage levels={levels} handlePickLevel={handlePickLevel} isLoading={isLoading} isError={isError} />} />
+            <Route path="/game" element={<GamePage level={getLevel(gameLevel)} handleSubmitToLeaderboard={handleSubmitToLeaderboard} isLoading={isLoading} isError={isError} />} />
+            <Route path="/leaderboard" element={<LeaderboardPage levels={levels} gameLevel={gameLevel} leaderboard={leaderboard} isLoading={isLoading} isError={isError} />} />
           </Routes>
         </div>
 
