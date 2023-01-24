@@ -33,6 +33,10 @@
 }
 
 .leaderboard-table-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   width: 50%;
   margin: 10px 20px;
 }
