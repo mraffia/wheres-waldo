@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Rings } from 'react-loader-spinner';
+import { ThreeDots } from 'react-loader-spinner';
 import '../styles/LeaderboardPage.css';
 
 function LeaderboardPage({ levels, gameLevel, leaderboard, isLoading, isError }) {
@@ -28,15 +28,15 @@ function LeaderboardPage({ levels, gameLevel, leaderboard, isLoading, isError })
       <div className="leaderboard-table-container">
         {isError && <div className="error-message">Something went wrong ...</div>}
         {isLoading ? (
-          <Rings
-            height="100"
-            width="100"
+          <ThreeDots 
+            height="80" 
+            width="80" 
+            radius="9"
             color="rgba(17, 45, 78, 1)"
-            radius="1"
+            ariaLabel="three-dots-loading"
             wrapperStyle={{}}
-            wrapperClass=""
+            wrapperClassName=""
             visible={true}
-            ariaLabel="rings-loading"
           />
         ) : (
           <table className="leaderboard-table" style={{ width: "100%" }}>

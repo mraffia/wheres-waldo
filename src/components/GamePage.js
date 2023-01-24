@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Popup from 'reactjs-popup';
-import { Rings } from 'react-loader-spinner';
+import { ThreeDots } from 'react-loader-spinner';
 import 'reactjs-popup/dist/index.css';
 import '../styles/GamePage.css';
 
@@ -45,13 +45,8 @@ function GamePage({ level, handleSubmitToLeaderboard, isLoading, isError }) {
 
       setFoundStatus(newFoundStatus)
       setOpenCharacterDropdown(!openCharacterDropdown);
-
-      console.log(time);
-      console.log(`You've found ${character.name}!`);
     } else {
       setOpenCharacterDropdown(!openCharacterDropdown);
-
-      console.log(`Whoops! That's not ${character.name}!`);
     }
   }
 
@@ -87,15 +82,15 @@ function GamePage({ level, handleSubmitToLeaderboard, isLoading, isError }) {
     <div className="game-container">
       {isError && <div className="error-message">Something went wrong ...</div>}
       {isLoading ? (
-        <Rings
-          height="100"
-          width="100"
+        <ThreeDots 
+          height="80" 
+          width="80" 
+          radius="9"
           color="rgba(17, 45, 78, 1)"
-          radius="1"
+          ariaLabel="three-dots-loading"
           wrapperStyle={{}}
-          wrapperClass=""
+          wrapperClassName=""
           visible={true}
-          ariaLabel="rings-loading"
         />
       ) : (
         <div className="game-subcontainer">
