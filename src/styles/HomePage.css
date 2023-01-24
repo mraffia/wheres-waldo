@@ -13,7 +13,7 @@
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr;
   max-width: 1400px;
-  margin: 40px;
+  margin: 0px 40px 40px 40px;
 }
 
 .game-link {
