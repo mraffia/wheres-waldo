@@ -42,17 +42,20 @@ function LeaderboardPage({ levels, gameLevel, leaderboard, isLoading, isError })
           <table className="leaderboard-table" style={{ width: "100%" }}>
             <thead>
               <tr>
-                <th style={{ width: "70%" }}>NAME</th>
+                <th style={{ width: "50%" }}>NAME</th>
                 <th style={{ width: "30%" }}>TIME (SECONDS)</th>
+                <th style={{ width: "20%" }}>DATE</th>
               </tr>
             </thead>
             <tbody>
               {Object.keys(leaderboard).map((item, i) => {
                 if (leaderboard[item].level === currentLevel) {
+                  const newDate = new Date(leaderboard[item].date);
                   return (
                     <tr key={i}>
                       <td>{leaderboard[item].name}</td>
                       <td>{Math.floor((leaderboard[item].time / 1000)) + "." + ((leaderboard[item].time / 10) % 100)}</td>
+                      <td>{newDate.getUTCDate() + "/" + (newDate.getUTCMonth() + 1) + "/" + newDate.getUTCFullYear()}</td>
                     </tr>
                   )
                 }
