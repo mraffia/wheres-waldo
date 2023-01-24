@@ -60,6 +60,7 @@ function App() {
   const [gameLevel, setGameLevel] = useState('Easy');
   const [leaderboard, setLeaderboard] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   function getLevel(gameLevel) {
     let level;
@@ -78,14 +79,21 @@ function App() {
   function handleSubmitToLeaderboard(playerName, time, level) {
     saveLeaderboardData(playerName, time, level);
 
-    (async () => {
+    const fetchLeaderboardData = async () => {
+      setIsError(false);
       setIsLoading(true);
 
-      const leaderboardData = await getLeaderboard(db);
-      setLeaderboard(leaderboardData);
+      try {
+        const leaderboardData = await getLeaderboard(db);
+        setLeaderboard(leaderboardData);
+      } catch (error) {
+        setIsError(true);
+      }
 
       setIsLoading(false);
-    })();
+    };
+
+    fetchLeaderboardData();
   }
 
   // Saves a new leaderboard data to Cloud Firestore.
@@ -112,14 +120,21 @@ function App() {
   }
 
   useEffect(() => {
-    (async () => {
+    const fetchLeaderboardData = async () => {
+      setIsError(false);
       setIsLoading(true);
 
-      const leaderboardData = await getLeaderboard(db);
-      setLeaderboard(leaderboardData);
-      
+      try {
+        const leaderboardData = await getLeaderboard(db);
+        setLeaderboard(leaderboardData);
+      } catch (error) {
+        setIsError(true);
+      }
+
       setIsLoading(false);
-    })();
+    };
+    
+    fetchLeaderboardData();
   }, []);
 
   useEffect(() => {
@@ -135,7 +150,7 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage levels={levels} handlePickLevel={handlePickLevel} />} />
             <Route path="/game" element={<GamePage level={getLevel(gameLevel)} handleSubmitToLeaderboard={handleSubmitToLeaderboard}/>} />
-            <Route path="/leaderboard" element={<LeaderboardPage levels={levels} gameLevel={gameLevel} leaderboard={leaderboard} isLoading={isLoading}/>} />
+            <Route path="/leaderboard" element={<LeaderboardPage levels={levels} gameLevel={gameLevel} leaderboard={leaderboard} isLoading={isLoading} isError={isError}/>} />
           </Routes>
         </div>
 
