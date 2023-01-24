@@ -7,12 +7,7 @@ import {
   addDoc,
   query,
   orderBy,
-  limit,
-  onSnapshot,
-  setDoc,
-  updateDoc,
-  doc,
-  serverTimestamp,
+  getDocs,
 } from 'firebase/firestore';
 import {
   getStorage,
@@ -21,11 +16,11 @@ import {
   getDownloadURL,
 } from 'firebase/storage';
 import { getFirebaseConfig } from './firebase-config.js';
-import './App.css';
 import Nav from './components/Nav.js';
 import HomePage from './components/HomePage.js';
 import GamePage from './components/GamePage.js';
 import LeaderboardPage from './components/LeaderboardPage.js';
+import './App.css';
 import Waldo from './images/waldo.jpg';
 import Odlaw from './images/odlaw.jpg';
 import Wenda from './images/wenda.jpeg';
@@ -34,8 +29,8 @@ import Easy from './images/easyCropped.jpg';
 import Medium from './images/mediumCropped.jpg';
 import Hard from './images/hardCropped.jpg';
 
-const firebaseAppConfig = getFirebaseConfig();
-const app = initializeApp(firebaseAppConfig);
+const firebaseApp = initializeApp(getFirebaseConfig());
+const db = getFirestore(firebaseApp);
 
 function App() {
   const [levels, setLevels] = useState([
@@ -43,7 +38,7 @@ function App() {
       difficulty: "Easy",
       image: Easy,
       characters: [
-        { name: "Waldo", image: Waldo, found: false }
+        { name: "Waldo", image: Waldo }
       ]
     },
     { 
@@ -80,13 +75,43 @@ function App() {
   }
 
   function handleSubmitToLeaderboard(playerName, time, level) {
-    let newLeaderboard = [...leaderboard];
-    newLeaderboard.push({ name: playerName, time: time, level: level });
+    saveLeaderboardData(playerName, time, level);
 
-    newLeaderboard.sort((a, b) => (a.time > b.time) ? 1 : -1)
-
-    setLeaderboard(newLeaderboard);
+    (async () => {
+      const leaderboardData = await getLeaderboard(db);
+      setLeaderboard(leaderboardData);
+    })();
   }
+
+  // Saves a new leaderboard data to Cloud Firestore.
+  async function saveLeaderboardData(playerName, time, level) {
+    // Add a new leaderboard data entry to the Firebase database.
+    try {
+      await addDoc(collection(db, 'leaderboard'), {
+        name: playerName,
+        time: time,
+        level: level,
+      });
+    }
+    catch(error) {
+      console.error('Error writing new leaderboard data to Firebase Database', error);
+    }
+  }
+
+  // Get a list of all leaderboard data from database
+  async function getLeaderboard(db) {
+    const leaderboardQuery = query(collection(db, "leaderboard"), orderBy("time"));
+    const leaderboardSnapshot = await getDocs(leaderboardQuery);
+    const leaderboardList = leaderboardSnapshot.docs.map(doc => doc.data());
+    return leaderboardList;
+  }
+
+  useEffect(() => {
+    (async () => {
+      const leaderboardData = await getLeaderboard(db);
+      setLeaderboard(leaderboardData);
+    })();
+  }, []);
 
   useEffect(() => {
     console.log(leaderboard);
