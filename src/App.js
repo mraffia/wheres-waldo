@@ -87,6 +87,7 @@ function App() {
         const leaderboardData = await getLeaderboard(db);
         setLeaderboard(leaderboardData);
       } catch (error) {
+        console.error('Error fetching leaderboard data from Firebase Database', error);
         setIsError(true);
       }
 
@@ -99,15 +100,19 @@ function App() {
   // Saves a new leaderboard data to Cloud Firestore.
   async function saveLeaderboardData(playerName, time, level) {
     // Add a new leaderboard data entry to the Firebase database.
+    setIsError(false);
+
     try {
       await addDoc(collection(db, 'leaderboard'), {
         name: playerName,
         time: time,
         level: level,
+        date: Date.now(),
       });
     }
     catch(error) {
       console.error('Error writing new leaderboard data to Firebase Database', error);
+      setIsError(true);
     }
   }
 
