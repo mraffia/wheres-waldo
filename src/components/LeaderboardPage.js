@@ -8,10 +8,6 @@ function LeaderboardPage({ levels, gameLevel, leaderboard }) {
     setCurrentLevel(level);
   }
 
-  useEffect(() => {
-    console.log(currentLevel);
-  })
-
   return (
     <div className="leaderboard-container">
       <h1 className="leaderboard-title">Leaderboard</h1>
@@ -30,21 +26,25 @@ function LeaderboardPage({ levels, gameLevel, leaderboard }) {
       </div>
       <div className="leaderboard-table-container">
         <table className="leaderboard-table" style={{ width: "100%" }}>
-          <tr>
-            <th style={{ width: "70%" }}>Name</th>
-            <th style={{ width: "30%" }}>Time (seconds)</th>
-          </tr>
-          {leaderboard.map((data, i) => {
-            if (data.level === currentLevel) {
-              return (
-                <tr key={i}>
-                  <td>{data.name}</td>
-                  <td>{Math.floor((data.time / 1000)) + "." + ((data.time / 10) % 100)}</td>
-                </tr>
-              )
-            }
-            return '';
-          })}
+          <thead>
+            <tr>
+              <th style={{ width: "70%" }}>NAME</th>
+              <th style={{ width: "30%" }}>TIME (SECONDS)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {Object.keys(leaderboard).map((item, i) => {
+              if (leaderboard[item].level === currentLevel) {
+                return (
+                  <tr key={i}>
+                    <td>{leaderboard[item].name}</td>
+                    <td>{Math.floor((leaderboard[item].time / 1000)) + "." + ((leaderboard[item].time / 10) % 100)}</td>
+                  </tr>
+                )
+              }
+              return '';
+            })}
+          </tbody>
         </table>
       </div>
     </div>
