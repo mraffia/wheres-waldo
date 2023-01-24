@@ -123,7 +123,7 @@ function App() {
   }, []);
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/wheres-waldo">
       <div className="container">
         <Nav />
 
