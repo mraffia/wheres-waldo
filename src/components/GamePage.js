@@ -87,7 +87,7 @@ function GamePage({ level, handleSubmitToLeaderboard }) {
         <div className="game-characters">
           {level.characters.map((character, i) => {
             return (
-              <div key={i} className="game-character-container" style={foundStatus[level.difficulty][character.name] ? { opacity: 0.5 } : { opacity: 1 }}>
+              <div key={i} className="game-character-container" style={foundStatus[level.difficulty][character.name] ? { opacity: 0.3 } : { opacity: 1 }}>
                 <img className="game-character-image" src={character.image} alt={character.name} />
                 <div className="game-character-name"><strong>{character.name}</strong></div>
               </div>
