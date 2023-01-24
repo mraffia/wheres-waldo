@@ -75,7 +75,6 @@
 }
 
 #Easy-Waldo {
-  float: left;
   position: absolute;
   left: 515px;
   top: 270px;
@@ -85,7 +84,6 @@
 }
 
 #Medium-Odlaw {
-  float: left;
   position: absolute;
   left: 42px;
   top: 542px;
@@ -95,7 +93,6 @@
 }
 
 #Hard-Wenda {
-  float: left;
   position: absolute;
   left: 95px;
   top: 558px;
@@ -105,7 +102,6 @@
 }
 
 #Hard-Wizard {
-  float: left;
   position: absolute;
   left: 105px;
   top: 325px;
