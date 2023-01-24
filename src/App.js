@@ -95,6 +95,7 @@ function App() {
       const levelsData = await getLevels(db);
       setLevels(levelsData);
     } catch (error) {
+      console.error('Error fetching levels data from Firebase Database', error);
       setIsError(true);
     }
 
@@ -109,6 +110,7 @@ function App() {
       const leaderboardData = await getLeaderboard(db);
       setLeaderboard(leaderboardData);
     } catch (error) {
+      console.error('Error fetching leaderboard data from Firebase Database', error);
       setIsError(true);
     }
 
