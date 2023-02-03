@@ -22,7 +22,7 @@ const db = getFirestore(firebaseApp);
 function App() {
   const [levels, setLevels] = useState([]);
   const [leaderboard, setLeaderboard] = useState([]);
-  const [gameLevel, setGameLevel] = useState('Easy');
+  const [gameLevel, setGameLevel] = useState(localStorage.getItem("current_level") ? localStorage.getItem("current_level") : 'Easy');
   const [defaultLevel, setDefaultLevel] = useState({
     difficulty: "Easy",
     imageUrl: "",
@@ -44,6 +44,7 @@ function App() {
   }
 
   function handlePickLevel(difficulty) {
+    localStorage.setItem("current_level", difficulty);
     setGameLevel(difficulty);
   }
 
