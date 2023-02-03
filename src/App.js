@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route, HashRouter } from "react-router-dom";
 import { initializeApp } from 'firebase/app';
 import {
   getFirestore,
@@ -123,7 +123,7 @@ function App() {
   }, []);
 
   return (
-    <BrowserRouter basename="/wheres-waldo">
+    <HashRouter>
       <div className="container">
         <Nav />
 
@@ -139,7 +139,7 @@ function App() {
           By yours truly,&nbsp;<a href="https://github.com/mraffia"><strong>mraffia</strong></a>
         </div>
       </div>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
