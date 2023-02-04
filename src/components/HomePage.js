@@ -4,7 +4,7 @@ import { ThreeDots } from 'react-loader-spinner';
 import '../styles/HomePage.css';
 import GameCard from './GameCard.js';
 
-function HomePage({ levels, handlePickLevel, isLoading, isError }) {
+function HomePage({ levels, handleCurrentLevel, isLoading, isError }) {
   return (
     <div className="home-container">
       <h1>Choose A Level:</h1>
@@ -26,7 +26,7 @@ function HomePage({ levels, handlePickLevel, isLoading, isError }) {
             return (
               <div key={i}>
                 <Link to="/game" className="game-link">
-                  <GameCard level={level} handlePickLevel={handlePickLevel} />
+                  <GameCard level={level} handleCurrentLevel={handleCurrentLevel} />
                 </Link>
               </div>
             )

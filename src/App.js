@@ -43,7 +43,7 @@ function App() {
     return level ? level : defaultLevel;
   }
 
-  function handlePickLevel(difficulty) {
+  function handleCurrentLevel(difficulty) {
     localStorage.setItem("current_level", difficulty);
     setGameLevel(difficulty);
   }
@@ -130,7 +130,7 @@ function App() {
 
         <div className="content">
           <Routes>
-            <Route path="/" element={<HomePage levels={levels} handlePickLevel={handlePickLevel} isLoading={isLoading} isError={isError} />} />
+            <Route path="/" element={<HomePage levels={levels} handleCurrentLevel={handleCurrentLevel} isLoading={isLoading} isError={isError} />} />
             <Route path="/game" element={<GamePage level={getLevel(gameLevel)} handleSubmitToLeaderboard={handleSubmitToLeaderboard} isLoading={isLoading} isError={isError} />} />
             <Route path="/leaderboard" element={<LeaderboardPage levels={levels} gameLevel={gameLevel} leaderboard={leaderboard} isLoading={isLoading} isError={isError} />} />
           </Routes>

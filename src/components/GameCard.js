@@ -1,9 +1,9 @@
 import React from 'react';
 import '../styles/GameCard.css';
 
-function GameCard({ level, handlePickLevel }) {
+function GameCard({ level, handleCurrentLevel }) {
   return (
-    <div className="card-container" onClick={() => handlePickLevel(level.difficulty)}>
+    <div className="card-container" onClick={() => handleCurrentLevel(level.difficulty)}>
       <div className="card-image-container">
         <img className="card-image" src={level.imageUrl} alt={level.difficulty} />
       </div>
