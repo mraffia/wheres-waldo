@@ -8,6 +8,10 @@
   animation-fill-mode: forwards;
 }
 
+.home-title {
+  margin-top: 40px;
+}
+
 .home-subcontainer {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;

@@ -8,6 +8,10 @@
   animation-fill-mode: forwards;
 }
 
+.leaderboard-title {
+  margin-top: 40px;
+}
+
 .leaderboard-levels {
   margin: 10px 20px;
 }

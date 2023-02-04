@@ -7,7 +7,7 @@ import GameCard from './GameCard.js';
 function HomePage({ levels, handleCurrentLevel, isLoading, isError }) {
   return (
     <div className="home-container">
-      <h1>Choose A Level:</h1>
+      <h1 className="home-title">Choose A Level:</h1>
       {isError && <div className="error-message">Something went wrong ...</div>}
       {isLoading ? (
         <ThreeDots 
