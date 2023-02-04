@@ -5,7 +5,7 @@
 .container {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 8vh 1fr 4vh;
+  grid-template-rows: 70px 1fr 35px;
   grid-template-areas: 
   "nav"
   "content"
