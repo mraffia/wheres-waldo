@@ -5,6 +5,13 @@ import '../styles/LeaderboardPage.css';
 function LeaderboardPage({ levels, gameLevel, leaderboard, isLoading, isError }) {
   const [currentLevel, setCurrentLevel] = useState(gameLevel);
 
+  function dateFormatter(date) {
+    const options = { year: 'numeric', month: 'short', day: 'numeric' };
+    let newDate = new Date(date);
+
+    return newDate.toLocaleDateString("en-GB", options)
+  }
+
   function handleClickLeaderboardLevel(level) {
     setCurrentLevel(level);
   }
@@ -50,12 +57,11 @@ function LeaderboardPage({ levels, gameLevel, leaderboard, isLoading, isError })
             <tbody>
               {Object.keys(leaderboard).map((item, i) => {
                 if (leaderboard[item].level === currentLevel) {
-                  const newDate = new Date(leaderboard[item].date);
                   return (
                     <tr key={i}>
                       <td>{leaderboard[item].name}</td>
                       <td>{Math.floor((leaderboard[item].time / 1000)) + "." + ((leaderboard[item].time / 10) % 100)}</td>
-                      <td>{newDate.getUTCDate() + "/" + (newDate.getUTCMonth() + 1) + "/" + newDate.getUTCFullYear()}</td>
+                      <td>{dateFormatter(leaderboard[item].date)}</td>
                     </tr>
                   )
                 }
